@@ -1,13 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState} from "react"
 
 function App() {
+  const [number, setNumber] = useState(0) 
+  function buttonInc() {
+    setNumber(number + 1)
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <img src="https://media.tenor.com/2gjvgYyOusYAAAAS/rocket-league-cosplay.gif" className="App-logo" alt="logo" /> */}
         <p>
-          Hello <code>src/App.js</code> and save to reload.
+          <button type="button" onClick={()=>buttonInc()}>Click Me!</button> 
+          {number}
         </p>
         <a
           className="App-link"
