@@ -6,7 +6,7 @@ function App() {
   const [number, setCard] = useState(0);
   const [deck, setDeck] = useState([]);
   let card;
-
+  
   useEffect(()=>{ 
     card = [["Ace", 1, 4], ["Two", 2, 4], ["Three", 3, 4], ["Four", 4, 4], ["Five", 5, 4], ["Six", 6, 4], ["Seven", 7, 4], ["Eight", 8, 4], ["Nine", 9, 4], ["Ten", 10, 4], ["Jack", 10, 4], ["Queen", 10, 4], ["King", 10, 4]];
     let deckProto = [];
@@ -43,15 +43,25 @@ function App() {
     console.log(deckProto); 
     setDeck(deckProto);
   },[])
+
+  useEffect(()=>{ // creates the first 4 cards of the game.
+    let beginningCards = [];
+    let randCard;
+    
+    for (let i = 0; i < 4; i++){
+      randCard = getRandomInt(0, 51);
+      beginningCards.push([deck[randCard], deck[randCard]]);
+    }
+  },[]) // make this function happen everytime the round starts
   
-  function getCard(){
+  function getCard(){ // gets a random card and displays it on screen
     console.log(deck);
     var c = deck[getRandomInt(0, 51)];
     setCard(c[0]);
   }
 
   //const [number, setRandomInt] = useState(0)
-  function getRandomInt(min, max) {
+  function getRandomInt(min, max) { // use this function to get a random number
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   
@@ -62,6 +72,12 @@ function App() {
         <p>
           <div>
             <button type="button" onClick={()=>getCard()}>Hit!</button> 
+          </div>
+          <div>
+            {number}
+          </div>
+          <div>
+            <button type="button" onClick={()=>getCard()}>Stand!</button> 
           </div>
           <div>
             {number}
