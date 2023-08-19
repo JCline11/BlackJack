@@ -5,7 +5,12 @@ import {useState, useEffect} from "react"
 function App() {
   const [number, setCard] = useState(0);
   const [deck, setDeck] = useState([]);
+  const [playerHand, setPlayerHand] = useState([]);
+  const [dealerHand, setDealerHand] = useState([]);
   let card;
+  var currentCardPos = 0; // keeps track of number card in deck
+  var curPlPos = 0;
+  var curDPos = 0;
   
   useEffect(()=>{ 
     card = [["Ace", 1, 4], ["Two", 2, 4], ["Three", 3, 4], ["Four", 4, 4], ["Five", 5, 4], ["Six", 6, 4], ["Seven", 7, 4], ["Eight", 8, 4], ["Nine", 9, 4], ["Ten", 10, 4], ["Jack", 10, 4], ["Queen", 10, 4], ["King", 10, 4]];
@@ -45,14 +50,31 @@ function App() {
   },[])
 
   useEffect(()=>{ // creates the first 4 cards of the game.
+    if(deck.length === 52){ //checks deck is set
     let beginningCards = [];
     let randCard;
     
-    for (let i = 0; i < 4; i++){
-      randCard = getRandomInt(0, 51);
-      beginningCards.push([deck[randCard], deck[randCard]]);
+    for (var i = 0; i < 4; i++){
+      beginningCards[i] = deck[i];
     }
-  },[]) // make this function happen everytime the round starts
+    console.log(beginningCards);
+  }
+  },[deck]) // make this function happen everytime the round starts
+
+  function getPlayerHand(){ // adds a card from the deck to the player hand.
+    let playerHandProto = [];
+    playerHandProto[curPlPos] = deck[currentCardPos];
+    currentCardPos++; 
+    curPlPos++;
+    setPlayerHand(playerHandProto[curPlPos]);
+  }
+  function getDealerHand(){ // adds a card from the deck to the Dealer hand.
+    let dealerHandProto = [];
+    dealerHandProto[curDPos] = deck[currentCardPos];
+    currentCardPos++; 
+    curDPos++;
+    setDealerHand(dealerHandProto[curDPos]);
+  }
   
   function getCard(){ // gets a random card and displays it on screen
     console.log(deck);
